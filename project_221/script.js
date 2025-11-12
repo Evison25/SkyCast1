@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const city = cityInput.value || "London";
     const days = 7;
     const weatherapi = "api_key"; 
-    const url = `https://api.weatherapi.com/v1/forecast.json?key=${weatherapi}&q=${city}&days=${days}&aqi=yes&alerts=no`;
+    const url = `https://api.weatherapi.com/v1/forecast.json?key=${weatherapi}&q=${city}&days=${days}&aqi=yes&alerts=yes`;
 
     try {
       const response = await fetch(url);
@@ -41,6 +41,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
       iconselect(data);
       timelyWeather(data);
+
+      // Update weather alerts
+      const alertsList = document.querySelector("#alerts-list");
+      alertsList.innerHTML = ""; // Clear previous alerts
+
+      if (data.alerts && data.alerts.alert && data.alerts.alert.length > 0) {
+        data.alerts.alert.forEach(alert => {
+          const listItem = document.createElement("li");
+          listItem.innerHTML = `<strong>${alert.headline}</strong>: ${alert.desc}`;
+          alertsList.appendChild(listItem);
+        });
+      } else {
+        const listItem = document.createElement("li");
+        listItem.textContent = "No active weather alerts.";
+        alertsList.appendChild(listItem);
+      }
 
     } catch (err) {
       alert("Error fetching weather: " + err);

@@ -413,18 +413,35 @@ color: 	#C13584;
   margin-left: 10px;
 }
 
+.weather-alerts {
+  background: linear-gradient(to right, #d9534f, #e67e22);
+  color: white;
+  padding: 15px;
+  border-radius: 12px;
+  margin-top: 20px;
+  margin-left: 140px;
+  width: 600px;
+  box-shadow: 0 8px 20px rgba(217, 83, 79, 0.2);
+  text-align: left;
+}
 
+.weather-alerts h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
 
+.weather-alerts ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 
-
-
-
-
-
-
-
-
-
+.weather-alerts li {
+  margin-bottom: 8px;
+  font-size: 16px;
+  line-height: 1.4;
+}
 
 
 /* loader*/
