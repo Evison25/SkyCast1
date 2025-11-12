@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const city = cityInput.value || "London";
     const days = 7;
     const weatherapi = "api_key"; 
-    const url = `https://api.weatherapi.com/v1/forecast.json?key=${weatherapi}&q=${city}&days=${days}&aqi=no&alerts=no`;
+    const url = `https://api.weatherapi.com/v1/forecast.json?key=${weatherapi}&q=${city}&days=${days}&aqi=yes&alerts=no`;
 
     try {
       const response = await fetch(url);
@@ -37,6 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
       document.querySelector(".temp-main").innerHTML = `${data.current.temp_c}°C`;
       document.querySelector(".condition").innerHTML = data.current.condition.text;
       document.querySelector(".feels-like").innerHTML = `${data.current.feelslike_c}°C`;
+      document.querySelector(".aqi").innerHTML = `AQI: ${data.current.air_quality['us-epa-index']}`;
 
       iconselect(data);
       timelyWeather(data);

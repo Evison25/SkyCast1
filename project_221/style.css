@@ -282,6 +282,11 @@ padding: 10px;
   font-weight: 500;
 }
 
+.aqi {
+  font-size: 18px;
+  font-weight: 500;
+}
+
 .day-night {
   font-size: 14px;
   color: #ddd;
