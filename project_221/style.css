@@ -414,14 +414,14 @@ color: 	#C13584;
 }
 
 .weather-alerts {
-  background: linear-gradient(to right, #d9534f, #e67e22);
+  background: linear-gradient(to right, #2a4fc7, #51a2db); /* Changed to blue gradient */
   color: white;
   padding: 15px;
   border-radius: 12px;
   margin-top: 20px;
   margin-left: 140px;
   width: 600px;
-  box-shadow: 0 8px 20px rgba(217, 83, 79, 0.2);
+  box-shadow: 0 8px 20px rgba(86, 158, 240, 0.2); /* Adjusted shadow color */
   text-align: left;
 }
 
