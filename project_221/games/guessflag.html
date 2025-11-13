@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guess The Flag</title>
+  <link rel="stylesheet" href="guessflag.css">
+</head>
+<body>
+  <div class="game-container">
+    <h1>🌍 Guess The Flag</h1>
+
+    <div class="toggle-container">
+      <span>Easy</span>
+      <label class="switch">
+        <input type="checkbox" id="hardModeToggle">
+        <span class="slider"></span>
+      </label>
+      <span>Hard</span>
+    </div>
+
+    <div class="flag-container">
+      <img id="flagImage" src="" alt="Flag">
+    </div>
+
+    <div id="options" class="options"></div>
+
+    <div class="score">Score: <span id="score">0</span></div>
+
+    <div id="message"></div>
+
+    <button id="nextBtn">SKIP</button>
+  </div>
+
+  <script src="guessflag.js"></script>
+</body>
+</html>

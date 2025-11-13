@@ -1,178 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background-image: linear-gradient(to left,#32C7EC,#326AEC,#5732EC);
-  background-size: cover;
-  background-position: center;
+  overflow: hidden;
+  background: linear-gradient(to bottom right, #6ea9ff, #b9dcff);
+}
+
+.background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb') center/cover no-repeat;
+  filter: blur(6px) brightness(0.8);
+  z-index: -1;
+}
+
+.auth-container {
+  background: rgb(15, 15, 15,0.5);
+  border-radius: 20px;
+  padding: 40px 50px;
+  width: 380px;
+  color: #fff;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  animation: fadeIn 0.8s ease forwards;
+}
+
+.form {
+  display: none;
+  flex-direction: column;
+  animation: slideIn 0.6s ease;
+}
+
+.form.active {
+  display: flex;
+}
+
+.form h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-weight: 600;
   color: #fff;
 }
 
-.container {
-  display: flex;
-  width: 80%;
-  height: 80%;
-  
-  border-radius: 15px;
-}
-
-.left-panel {
-    background-image: url("https://files.123freevectors.com/wp-content/original/154304-bright-blue-background-vector-image.jpg");
-  flex: 1;
-  padding: 20px;
+.input-group {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  border-top-left-radius: 40px;
-  border-bottom-left-radius: 40px;
-}
-
-.left-panel h1 {
-  font-size: 50px;
-  font-weight: 500;
-  margin-bottom: 5px;
-   font-family: "Alan Sans", sans-serif;
-   font-style: normal;
-  margin-left: 20px;
-}
-
-.left-panel p {
-  font-size: 25px;
-  font-weight: 400;
-  margin-left: 20px;
-  margin-bottom: 90px;
-     font-family: "Alan Sans", sans-serif;
-   font-style: normal;
-}
-
-.right-panel {
-  flex: 1;
-  padding: 40px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: #ffffff;
-
-  color: #333;
-  border-top-right-radius: 40px;
-  border-bottom-right-radius:40px;
-}
-
-.right-panel h2 {
- 
-  margin-bottom: 20px;
-  font-family: "Alan Sans", sans-serif;
-  font-optical-sizing: auto;
-    font-weight: 500;
-  font-style: normal;
-font-size: 48px;
-}
-
-
-.right-panel input {
-  width: 100%;
-  padding: 12px;
   margin-bottom: 15px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font-size: 16px;
 }
 
-.right-panel label {
+.input-group label {
   font-size: 14px;
-  margin-bottom: 15px;
+  margin-bottom: 6px;
+  color: #e9e9e9;
 }
 
-.right-panel .join-us-btn {
+.input-group input {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  background: rgba(255, 255, 255, 0.25);
+  color: #fff;
+}
+
+.input-group input::placeholder {
+  color: #dcdcdc;
+}
+
+.btn {
   width: 100%;
   padding: 12px;
-  font-size: 18px;
-  background-color: #299EE3;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-bottom: 15px;
-}
-
-.right-panel .join-us-btn:hover {
-  background-color: #136290;
-  scale: 1.05;
-  transition: 0.5s ease-in-out;
-}
-
-.or-signup {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.or-signup span {
-  font-size: 16px;
-  color: #333;
-
-}
-
-.social-signup {
-  display: flex;
-  flex-direction: column;
-}
-
-.social-signup button {
-  width: 100%;
-  padding: 12px;
-  font-size: 16px;
-  margin-bottom: 15px;
-  border-radius: 5px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-
-.google-btn {
-  background-color: #000000;
-  color: white;
-  border: none;
-}
-
-.apple-btn {
-  background-color: #000000;
-  color: white;
-  border: none;
-}
-
-.join-us-btn:hover {
-  color: #ffffff;
-  background-color:black;
-}
-
-.google-btn,.apple-btn button:hover{
-    transition: 0.5s ease-in-out;
-}
-
-.login-btn {
-  width: 100%;
-  padding: 12px;
-  font-size: 18px;
-  background-color: #0e629e;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
   margin-top: 10px;
+  background: linear-gradient(90deg, #2196f3, #21cbf3);
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
 }
-.login-btn:hover {
-  background-color: #136290;
-  scale: 1.05;
-  transition: 0.5s ease-in-out;
+
+.btn:hover {
+  background: linear-gradient(90deg, #1976d2, #00bcd4);
+  transform: translateY(-2px);
+}
+
+.toggle-text {
+  text-align: center;
+  margin-top: 15px;
+  color: #dce7ff;
+}
+
+.toggle-text a {
+  color: #fff;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
 }
