@@ -1,86 +1,95 @@
+/* ===== GENERAL PAGE STYLING ===== */
 body {
-  background: linear-gradient(135deg, #325aa6, #073583);
-  color: rgb(0, 0, 0);
+  background: linear-gradient(135deg, #2193b0, #6dd5ed);
+  color: #ffffff;
   font-family: "Poppins", sans-serif;
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 100vh;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 40px 20px;
   margin: 0;
 }
 
-.game-container {
-
-  background-color: rgb(34, 75, 188);
-  padding: 30px;
-  border-radius: 20px;
-  text-align: center;
-  width: 350px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-}
-
-.flag-container img {
-  width: 200px;
-  height: 120px;
-  border-radius: 10px;
-  margin: 20px 0;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-}
-
-.options {
+/* Wrapper to hold game + leaderboard */
+.game-wrapper {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  flex-wrap: wrap;
+  gap: 30px;
+  width: 100%;
+  max-width: 1000px;
+  justify-content: center;
 }
 
-.option-btn {
-  background: rgba(255, 255, 255, 0.9);
-  border: none;
+/* ===== GAME CONTAINER ===== */
+.game-container {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 30px;
+  width: 360px;
+  text-align: center;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease;
+}
+
+.game-container:hover {
+  transform: translateY(-4px);
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 15px;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== PLAYER INPUT ===== */
+.player-input {
+  margin-bottom: 20px;
+}
+
+#playerName {
   padding: 10px;
-  border-radius: 10px;
-  color: rgb(0, 0, 0);
-  font-weight: 500;
+  border: none;
+  border-radius: 12px;
+  outline: none;
+  width: 170px;
+  text-align: center;
+  font-size: 1rem;
+  margin-right: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+#saveNameBtn {
+  background: #ffffff;
+  color: #2193b0;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 18px;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
-.option-btn:hover {
-  background: rgba(255,255,255,0.4);
+#saveNameBtn:hover {
+  background: #f1f1f1;
+  transform: scale(1.05);
 }
 
-.score {
-  margin-top: 10px;
-  font-size: 18px;
+/* ===== HARD MODE TOGGLE ===== */
+.toggle-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
 }
 
-#message {
-  margin-top: 10px;
-  font-weight: bold;
-}
-
-button#nextBtn {
-  background: #4aa3df;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 10px;
-  color: white;
-  margin-top: 15px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: 0.3s;
-}
-
-button#nextBtn:hover {
-  background: #368dcf;
-}
-
-/* Toggle switch */
 .switch {
   position: relative;
   display: inline-block;
   width: 50px;
   height: 25px;
-  margin: 0 10px;
 }
 
 .switch input { display: none; }
@@ -93,26 +102,156 @@ button#nextBtn:hover {
   right: 0;
   bottom: 0;
   background-color: #ccc;
-  transition: 0.4s;
   border-radius: 34px;
+  transition: 0.4s;
 }
 
 .slider:before {
-  position: absolute;
   content: "";
+  position: absolute;
   height: 17px;
   width: 17px;
   left: 4px;
   bottom: 4px;
   background-color: white;
-  transition: 0.4s;
   border-radius: 50%;
+  transition: 0.4s;
 }
 
 input:checked + .slider {
-  background-color: #2196F3;
+  background-color: #2193b0;
 }
 
 input:checked + .slider:before {
   transform: translateX(26px);
+}
+
+/* ===== FLAG DISPLAY ===== */
+.flag-container img {
+  width: 220px;
+  height: 140px;
+  border-radius: 10px;
+  margin: 20px 0;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.flag-container img:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+/* ===== OPTIONS ===== */
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.option-btn {
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  padding: 12px;
+  border-radius: 10px;
+  color: #1d1d1d;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.option-btn:hover {
+  background: #dff6ff;
+  transform: scale(1.03);
+}
+
+.option-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ===== SCORE & MESSAGE ===== */
+.score {
+  margin-top: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+#message {
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+#message.correct { color: #00ff99; }
+#message.wrong { color: #ff4444; }
+
+/* ===== BUTTON ===== */
+#nextBtn {
+  background: #4aa3df;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 12px;
+  color: white;
+  margin-top: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+#nextBtn:hover {
+  background: #368dcf;
+  transform: scale(1.05);
+}
+
+/* ===== LEADERBOARD ===== */
+.leaderboard-container {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 25px;
+  width: 300px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.leaderboard-container h2 {
+  margin-bottom: 15px;
+  color: #fff;
+  font-size: 1.5rem;
+}
+
+#leaderboardList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#leaderboardList li {
+  background: rgba(255, 255, 255, 0.85);
+  color: #1d1d1d;
+  margin: 8px 0;
+  padding: 10px 15px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  font-weight: 500;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+  transition: 0.3s;
+}
+
+#leaderboardList li:hover {
+  background: #dff6ff;
+  transform: scale(1.03);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .game-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .leaderboard-container {
+    width: 90%;
+  }
 }

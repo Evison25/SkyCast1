@@ -3,35 +3,56 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Guess The Flag</title>
+  <title>🌍 Guess The Flag</title>
   <link rel="stylesheet" href="guessflag.css">
 </head>
 <body>
-  <div class="game-container">
-    <h1>🌍 Guess The Flag</h1>
+  <div class="game-wrapper">
+    <div class="game-container">
+      <h1>🌍 Guess The Flag</h1>
 
-    <div class="toggle-container">
-      <span>Easy</span>
-      <label class="switch">
-        <input type="checkbox" id="hardModeToggle">
-        <span class="slider"></span>
-      </label>
-      <span>Hard</span>
+      <!-- Player name input -->
+      <div class="player-input">
+        <input type="text" id="playerName" placeholder="Enter your name">
+        <button id="saveNameBtn">Start</button>
+      </div>
+
+      <!-- Hard mode toggle -->
+      <div class="toggle-container">
+        <span>Easy</span>
+        <label class="switch">
+          <input type="checkbox" id="hardModeToggle">
+          <span class="slider"></span>
+        </label>
+        <span>Hard</span>
+      </div>
+
+      <!-- Flag image -->
+      <div class="flag-container">
+        <img id="flagImage" src="" alt="Flag">
+      </div>
+
+      <!-- Options -->
+      <div id="options" class="options"></div>
+
+      <!-- Score display -->
+      <div class="score">Score: <span id="score">0</span></div>
+
+      <!-- Message area -->
+      <div id="message"></div>
+
+      <!-- Skip button -->
+      <button id="nextBtn">SKIP</button>
+         <div class="leaderboard-container">
+      <h2>🏆 Leaderboard</h2>
+      <ul id="leaderboardList"></ul>
     </div>
-
-    <div class="flag-container">
-      <img id="flagImage" src="" alt="Flag">
-    </div>
-
-    <div id="options" class="options"></div>
-
-    <div class="score">Score: <span id="score">0</span></div>
-
-    <div id="message"></div>
-
-    <button id="nextBtn">SKIP</button>
   </div>
 
+    </div>
+
+    <!-- Leaderboard section -->
+ 
   <script src="guessflag.js"></script>
 </body>
 </html>

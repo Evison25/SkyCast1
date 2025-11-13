@@ -145,86 +145,71 @@ function mapConditionToIcon(condition) {
 
 
 //login and signup
-// Toggle between login and signup
-const signupForm = document.getElementById("signupForm");
-const loginForm = document.getElementById("loginForm");
-const toLogin = document.getElementById("toLogin");
-const toSignup = document.getElementById("toSignup");
+document.addEventListener("DOMContentLoaded", () => {
+  const signupForm = document.getElementById("signupForm");
+  const loginForm = document.getElementById("loginForm");
+  const toLogin = document.getElementById("toLogin");
+  const toSignup = document.getElementById("toSignup");
 
-toLogin.addEventListener("click", () => {
-  signupForm.classList.remove("active");
-  loginForm.classList.add("active");
-});
+  // Toggle between forms
+  toLogin.addEventListener("click", (e) => {
+    e.preventDefault();
+    signupForm.classList.remove("active");
+    loginForm.classList.add("active");
+  });
 
-toSignup.addEventListener("click", () => {
-  loginForm.classList.remove("active");
-  signupForm.classList.add("active");
-});
+  toSignup.addEventListener("click", (e) => {
+    e.preventDefault();
+    loginForm.classList.remove("active");
+    signupForm.classList.add("active");
+  });
 
-// Handle Sign Up
-signupForm.addEventListener("submit", (e) => {
+  // Sign Up validation
+  signupForm.addEventListener("submit", (e) => {
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+
+    if (!name || !email || !password || !confirmPassword) {
+      e.preventDefault();
+      alert("Please fill all fields.");
+      return;
+    }
+
+   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+if (!emailPattern.test(email)) {
   e.preventDefault();
-
-  const name = document.getElementById("name").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value.trim();
-  const confirmPassword = document.getElementById("confirmPassword").value.trim();
-
-  if (password.length < 6) {
-    alert("Password must be at least 6 characters long.");
-    return;
-  }
-  if (password !== confirmPassword) {
-    alert("Passwords do not match!");
-    return;
-  }
-
-  const user = { name, email, password };
-  localStorage.setItem("skycastUser", JSON.stringify(user));
-  alert("Account created successfully! You can now log in.");
-  signupForm.reset();
-
-  signupForm.classList.remove("active");
-  loginForm.classList.add("active");
-});
-
-// Handle Login
-loginForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-
-  const email = document.getElementById("loginEmail").value.trim();
-  const password = document.getElementById("loginPassword").value.trim();
-  const savedUser = JSON.parse(localStorage.getItem("skycastUser"));
-
-  if (!savedUser) {
-    alert("No account found! Please sign up first.");
-    return;
-  }
-
-  if (email === savedUser.email && password === savedUser.password) {
-    alert(`Welcome back, ${savedUser.name}!`);
-    window.location.href = "index.html"; // redirect to your main weather app
-  } else {
-    alert("Invalid email or password.");
-  }
-});
-
-
-document.getElementById("loginForm").addEventListener("submit", (e) => {
-  e.preventDefault();
-  console.log("Login clicked");
-  window.location.href = "index.html";
-});
-
-// Prevent refresh on signup form too (optional)
-document.getElementById("signupForm").addEventListener("submit", (e) => {
-  e.preventDefault();
-  console.log("Sign Up clicked");
-  window.location.href = "index.html";
-});
-
-// Redirect to index.html when "Sign Up" button clicked on login form
-function ToIndex() {
-  window.location.href = "index.html";
+  alert("Enter a valid email.");
+  return;
 }
+
+
+    if (password.length < 6) {
+      e.preventDefault();
+      alert("Password must be at least 6 characters.");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      e.preventDefault();
+      alert("Passwords do not match!");
+      return;
+    }
+
+    // Allow normal submit to signup.php
+  });
+
+  // Login validation
+  loginForm.addEventListener("submit", (e) => {
+    const email = document.getElementById("loginEmail").value.trim();
+    const password = document.getElementById("loginPassword").value;
+
+    if (!email || !password) {
+      e.preventDefault();
+      alert("Enter both email and password.");
+      return;
+    }
+  });
+});
 
