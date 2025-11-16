@@ -1,36 +1,63 @@
 <?php
+// Allow CORS (optional, useful for local testing)
+header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json");
 
-$file = "leaderboard.json";
+$filename = __DIR__ . '/leaderboard.json';
 
-// Ensure the file exists and initialize if missing
-if (!file_exists($file)) {
-    file_put_contents($file, "{}");
-}
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Read input JSON
+    $input = json_decode(file_get_contents('php://input'), true);
+    $name = trim($input['name'] ?? '');
+    $score = intval($input['score'] ?? 0);
 
-// Load existing leaderboard
-$data = json_decode(file_get_contents($file), true);
-if (!$data) $data = [];
+    // Basic validation
+    if ($name === '' || $score < 0) {
+        echo json_encode(["status" => "error", "message" => "Invalid input"]);
+        exit;
+    }
 
-// Read incoming JSON POST data
-$input = json_decode(file_get_contents("php://input"), true);
-$name = trim($input["name"] ?? "");
-$score = intval($input["score"] ?? 0);
+    // Ensure leaderboard file exists
+    if (!file_exists($filename)) {
+        file_put_contents($filename, json_encode([], JSON_PRETTY_PRINT));
+    }
 
-// Update leaderboard if a valid name is provided
-if ($name !== "") {
-    // Only keep the highest score
+    // Load existing data
+    $data = json_decode(file_get_contents($filename), true);
+    if (!is_array($data)) {
+        $data = [];
+    }
+
+    // Update score if higher or add new player
     if (!isset($data[$name]) || $score > $data[$name]) {
         $data[$name] = $score;
     }
 
+    // Sort leaderboard (highest score first)
+    arsort($data);
+
     // Save updated leaderboard
-    file_put_contents($file, json_encode($data, JSON_PRETTY_PRINT));
+    file_put_contents($filename, json_encode($data, JSON_PRETTY_PRINT));
+
+    // Return success and current leaderboard
+    echo json_encode([
+        "status" => "ok",
+        "message" => "Leaderboard updated",
+        "leaderboard" => $data
+    ]);
+} else { // GET request
+    if (!file_exists($filename)) {
+        echo json_encode([]);
+        exit;
+    }
+
+    $data = json_decode(file_get_contents($filename), true);
+    if (!is_array($data)) {
+        $data = [];
+    }
+    
+    arsort($data);
+
+    echo json_encode($data);
 }
-
-// Sort leaderboard descending by score
-arsort($data);
-
-// Return leaderboard as JSON
-echo json_encode($data);
 ?>

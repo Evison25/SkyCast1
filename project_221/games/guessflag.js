@@ -103,18 +103,42 @@ function nextFlag() {
 }
 
 function checkAnswer(selected) {
+  if (!playerName) {
+    message.textContent = "Please enter your name to play!";
+    return;
+  }
+
   if (selected === currentFlag.country) {
     score++;
     scoreDisplay.textContent = score;
     message.textContent = "✅ Correct!";
     nextFlag();
   } else {
-    message.textContent = `❌ Wrong! Game Over, ${playerName}!`;
+    message.textContent = `❌ Wrong! Game Over, ${playerName}! The correct answer was ${currentFlag.country}.`;
+   
     updateLeaderboard(playerName, score);
     score = 0;
     scoreDisplay.textContent = score;
-    loadLeaderboard();
   }
+}
+
+function loadLeaderboard() {
+  fetch("update_leaderboard.php") // Default GET request
+    .then(async (res) => {
+      if (!res.ok) {
+        const text = await res.text();
+        throw new Error(`Server error: ${res.status} - ${text}`);
+      }
+      return res.json();
+    })
+    .then((data) => {
+      console.log("🏆 Loaded leaderboard:", data);
+      displayLeaderboard(data);
+    })
+    .catch((error) => {
+      console.error("❌ Error loading leaderboard:", error);
+      message.textContent = "Error loading leaderboard (check console)";
+    });
 }
 
 function updateLeaderboard(name, score) {
@@ -124,22 +148,36 @@ function updateLeaderboard(name, score) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ name, score }),
   })
-  .then(res => res.json())
-  .then(() => loadLeaderboard());
+    .then(async (res) => {
+      if (!res.ok) {
+        const errText = await res.text();
+        throw new Error(`HTTP ${res.status}: ${errText}`);
+      }
+      return res.json();
+    })
+    .then((data) => {
+      console.log("Leaderboard updated:", data);
+      if (data.leaderboard) {
+        displayLeaderboard(data.leaderboard);
+        message.textContent = "🏆 Leaderboard updated!";
+      } else if (data.status === "error") {
+        message.textContent = "⚠️ " + data.message;
+      }
+    })
+    .catch((error) => {
+      console.error("Error updating leaderboard:", error);
+      message.textContent = "❌ Error updating leaderboard. Check console.";
+    });
 }
 
-function loadLeaderboard() {
-  fetch("leaderboard.json")
-    .then(res => res.json())
-    .then(data => {
-      leaderboardList.innerHTML = "";
-      const sorted = Object.entries(data).sort((a, b) => b[1] - a[1]);
-      sorted.forEach(([name, score]) => {
-        const li = document.createElement("li");
-        li.textContent = `${name}: ${score}`;
-        leaderboardList.appendChild(li);
-      });
-    });
+function displayLeaderboard(data) {
+  leaderboardList.innerHTML = "";
+  const sorted = Object.entries(data).sort((a, b) => b[1] - a[1]);
+  sorted.forEach(([name, score]) => {
+    const li = document.createElement("li");
+    li.textContent = `${name}: ${score}`;
+    leaderboardList.appendChild(li);
+  });
 }
 
 nextBtn.addEventListener("click", nextFlag);

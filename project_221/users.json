@@ -1,1 +1,37 @@
-[]
+[
+  {
+    "id": "1",
+    "username": "john_doe",
+    "email": "john.doe@example.com",
+    "password": "hashed_password",
+    "createdAt": "2023-01-01T12:00:00Z",
+    "profile": {
+      "firstName": "John",
+      "lastName": "Doe",
+      "avatar": "path/to/avatar.png"
+    },
+    "roles": [
+      "user"
+    ],
+    "lastLogin": "2023-01-10T08:30:00Z",
+    "isActive": true
+  },
+  {
+    "id": "2",
+    "username": "jane_doe",
+    "email": "jane.doe@example.com",
+    "password": "another_hashed_password",
+    "createdAt": "2023-02-15T10:00:00Z",
+    "profile": {
+      "firstName": "Jane",
+      "lastName": "Doe",
+      "avatar": "path/to/another_avatar.png"
+    },
+    "roles": [
+      "user",
+      "admin"
+    ],
+    "lastLogin": "2023-02-20T18:45:00Z",
+    "isActive": true
+  }
+]
